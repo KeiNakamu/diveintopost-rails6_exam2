@@ -205,6 +205,7 @@ ja:
     pm: 午後
   views:
     messages:
+      cannot_delete_another_member: リーダー以外が他のメンバーを削除できません
       create_agenda: 'アジェンダ作成に成功しました！'
       create_article: '記事作成に成功しました！'
       update_article: '記事更新に成功しました！'
