@@ -1,6 +1,8 @@
 class TeamsController < ApplicationController
   before_action :authenticate_user!
+
   before_action :set_team, only: %i[show edit update destroy assign_owner]
+  before_action :team_edit, only: %i[edit]
 
   def index
     @teams = Team.all
@@ -15,7 +17,8 @@ class TeamsController < ApplicationController
     @team = Team.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @team = Team.new(team_params)
@@ -62,5 +65,11 @@ class TeamsController < ApplicationController
 
   def team_params
     params.fetch(:team, {}).permit %i[name icon icon_cache owner_id keep_team_id]
+  end
+
+  def team_edit
+    unless current_user == @team.owner
+      redirect_to teams_url, notice: "編集はリーダーのみが行えます。"
+    end
   end
 end
